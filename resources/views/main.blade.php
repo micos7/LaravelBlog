@@ -10,6 +10,7 @@
     <h1>Hello, laravel!</h1>
 
     <div class="container">
+      @include('partials._messages')
 
       @yield('content')
 
