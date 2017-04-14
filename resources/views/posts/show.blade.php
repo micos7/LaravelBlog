@@ -25,7 +25,6 @@
 
         <div class="row">
           <div class="col-sm-6">
-
              <a href="{{  route('posts.edit', $post->id, 'Edit')  }}" class="btn btn-primary btn-block">Edit</a>
           </div>
           <div class="col-sm-6">
