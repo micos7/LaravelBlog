@@ -73,7 +73,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+      $post = Post::find($id);
+      return view('posts.edit')->withPost($post);
     }
 
     /**
@@ -85,7 +86,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
