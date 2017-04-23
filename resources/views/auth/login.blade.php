@@ -18,6 +18,8 @@
     <br>
 
     {!! Form::submit('Login',['class'=>'btn btn-primary btn-block'])  !!}
+    
+    <p><a href=" {{ url('password/reset')}} ">Forgot password</a></p>
     {!! Form::close()  !!}
     </div>
 </div>
