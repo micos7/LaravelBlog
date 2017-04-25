@@ -18,6 +18,11 @@
 			{{ Form::label('slug', 'Slug:') }}
 			{{ Form::text('slug', null, ["class" => 'form-control']) }}
 			</div>
+
+			<div class="form-group">
+			{{ Form::label('category_id', 'Category:') }}
+			{{ Form::select('category_id', $categories,$post->category_id, ["class" => 'form-control']) }}
+			</div>
 			
 
 			{{ Form::label('body', "Body:", ['class' => 'form-spacing-top']) }}
