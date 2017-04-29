@@ -2,11 +2,12 @@
 
   @section('title','| Contact')
   
-  @section('contact')
+  @section('content')
           <div class="row">
             <div class="col-md-12">
               <h1>Contact me</h1>
-              <form class="" action="#" method="post">
+              <form class="" action="{{ url('contact')}} " method="POST">
+              {{ csrf_field() }}
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input type="email" class="form-control" id="email" name="email">
