@@ -36,6 +36,10 @@ Route::resource('categories','CategoryController',['except'=>['create']]);
 
 Route::resource('tags','TagController',['except'=>['create']]);
 
+//comments
+
+Route::post('comments/{id}',['uses'=>'CommentsController@store','as'=>'comments.store']);
+
 
 
 Route::get('blog/{slug}',['as'=>'blog.single','uses'=>'BlogController@getSingle'])->where('slug','[\w\d\-\_]+');
