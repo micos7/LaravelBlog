@@ -5,6 +5,13 @@
 @section('stylesheets')
 {!!  Html::style('css/parsley.css')!!}
 {!!  Html::style('css/select2.min.css')!!}
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+<script>
+tinymce.init({
+  selector: 'textarea'
+});
+</script>
 @endsection
 @section('content')
 
@@ -45,7 +52,7 @@
 
       <div class="form-group">
         <label name="body">Post Body:</label>
-        <textarea id="body" name="body" rows="10" class="form-control"  required=''></textarea>
+        <textarea id="body" name="body" rows="10" class="form-control"  ></textarea>
       </div>
       <input type="submit" value="Create Post" class="btn btn-success btn-lg btn-block">
       {{ csrf_field() }}
