@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    public function getBodyAttribute($body){   
+     return strip_tags($body);
+    }
+
     public function category(){
         return $this->belongsTo('App\Category');
     }
