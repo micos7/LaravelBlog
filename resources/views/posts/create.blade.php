@@ -19,7 +19,7 @@ tinymce.init({
   <div class="col-md-8 col-md-offset-2">
     <h1>Create New Post</h1>
     <hr>
-    <form data-parsley-validate='' method="POST" action="{{ route('posts.store') }}">
+    <form data-parsley-validate='' method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
       <div class="form-group">
         <label name="title">Title:</label>
         <input id="title" name="title" class="form-control"  required='' maxlength="255">
@@ -49,6 +49,12 @@ tinymce.init({
         @endforeach
       </select>
     </div>
+
+<div class="form-group">
+        <label name="featured_image">Upload featured image:</label>
+        <input type="file" name="featured_image" class="form-control"  >
+  </div>
+
 
       <div class="form-group">
         <label name="body">Post Body:</label>
