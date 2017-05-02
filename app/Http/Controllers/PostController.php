@@ -11,6 +11,7 @@ use Session;
 use App\Category;
 use Purifier;
 use Image;
+use File;
 
 class PostController extends Controller
 {
@@ -52,7 +53,9 @@ class PostController extends Controller
         $this->validate($request,['title' => 'required|max:255',
         'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
         'category_id' => 'required|integer',
-        'body' => 'required']);
+        'body' => 'required',
+        'featured_image' => 'sometimes|image'
+        ]);
 
         $post = new Post();
 
@@ -125,11 +128,16 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
-        if($request->input('slug') == $post->slug){
-            $this->validate($request,['title' => 'required|max:255','category_id' => 'required|integer', 'body' => 'required']);
-        } else {
-            $this->validate($request,['title' => 'required|max:255','slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug','category_id' => 'required|integer','body' => 'required']);
-        }
+        
+        $this->validate($request,
+        [
+        'title' => 'required|max:255',
+        'slug' => "required|alpha_dash|min:5|max:255|unique:posts,slug,$id",
+        'category_id' => 'required|integer',
+        'body' => 'required',
+        'featured_image' => 'image'
+        ]);
+        
 
         
 
@@ -137,6 +145,18 @@ class PostController extends Controller
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category_id');
         $post->body = Purifier::clean($request->input('body'));
+
+        if($request->hasFile('featured_image')){
+            $image = $request->file('featured_image');
+
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/'.$filename);
+            Image::make($image)->resize(800,400)->save($location);
+            $oldFilename = $post->image;
+
+            $post->image = $filename;
+            File::delete(public_path('images/'. $oldFilename));
+        }
 
         $post->save();
         if(isset($request->tags)){
@@ -160,7 +180,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         $post->tags()->detach();
-
+        File::delete(public_path('images/'. $post->image));
         Session::flash('success','This post was successfully deleted!');
         return redirect()->route('posts.index');
     }

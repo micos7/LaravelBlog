@@ -17,7 +17,7 @@ tinymce.init({
 @section('content')
 
 	<div class="row">
-		{!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT']) !!}
+		{!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT', 'files' => 'true']) !!}
 		<div class="col-md-8">
 			<div class="form-group">
 			{{ Form::label('title', 'Title:') }}
@@ -37,6 +37,11 @@ tinymce.init({
 			<div class="form-group">
 			{{ Form::label('tags', 'Tag:', ["class" => 'form-spacing-top']) }}
 			{{ Form::select('tags[]', $tags,null, ["class" => 'form-control select2-multi','multiple'=>'multiple']) }}
+			</div>
+
+			<div class="form-group">
+			{{ Form::label('featured_image', 'Update featured image:') }}
+			{{ Form::file('featured_image', null, ["class" => 'form-control input-lg']) }}
 			</div>
 			
 
